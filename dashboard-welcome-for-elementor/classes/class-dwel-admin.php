@@ -73,11 +73,21 @@ final class Admin {
 		}
 
 		$this->settings_page = 'dwel-settings';
-		$this->settings_title = __('Dashboard Welcome for Elementor', 'dashboard-welcome-for-elementor');
-		$this->settings = $this->get_settings();
+		$this->settings      = $this->get_settings();
 
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 1000 );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
+	}
+
+	/**
+	 * Sets up translated strings after init fires.
+	 *
+	 * @since 1.0.9
+	 * @return void
+	 */
+	public function load_textdomain() {
+		$this->settings_title = esc_html__( 'Dashboard Welcome for Elementor', 'dashboard-welcome-for-elementor' );
 	}
 
 	/**
@@ -256,7 +266,7 @@ final class Admin {
 
 		$css = preg_replace( '/\s+/', ' ', $css );
 
-		echo '<style>' . esc_html( $css ) . '</style>';
+		echo '<style>' . wp_strip_all_tags( $css ) . '</style>';
 
 		$elementor->frontend->register_styles();
 		$elementor->frontend->enqueue_styles();
@@ -265,10 +275,8 @@ final class Admin {
 			switch_to_blog( $site_id );
 		}
 
-		// Elementor content is trusted HTML → whitelist output.
-		echo wp_kses_post(
-			$elementor->frontend->get_builder_content( $template_id, true )
-		);
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $elementor->frontend->get_builder_content( $template_id, true );
 
 		if ( $site_id && $is_multisite ) {
 			restore_current_blog();

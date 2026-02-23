@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor template, dashboard widget, dashboar
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,8 +51,12 @@ Not at all! All you need to know about Elementor.
 
 == Changelog ==
 
+= 1.0.10 - February 23, 2026 =
+*	Fix: Fixed an issue CSS output
+
 = 1.0.9 - February 23, 2026 =
-*	Security update
+*	Enhancement: Improved plugin codebase to make the code more secure
+*	Fix: Fixed an issue with load_plugin_textdomain
 
 = 1.0.8 - March 7, 2024 =
 *	Security update
